@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AnecdoteForm from './components/AnecdoteForm'
+import AnecdoteList from './components/AnecdoteList'
 import { upvote, newAnecdote } from './reducers/anecdoteReducer'
 
 const App = () => {
@@ -21,24 +22,10 @@ const App = () => {
     console.log(content)
   }
 
-
-
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes
-      .sort((a, b) => b.votes - a.votes)
-      .map(anecdote =>
-        <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
-          </div>
-        </div>
-      )}
+      <AnecdoteList vote={vote} anecdotes={anecdotes} />
       <AnecdoteForm addAnecdote={addAnecdote}/>
     </div>
   )
