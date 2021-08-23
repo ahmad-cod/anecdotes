@@ -2,16 +2,19 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
+import Notification from './components/Notification'
 import { upvote, newAnecdote } from './reducers/anecdoteReducer'
+import { addNotification } from './reducers/notificationReducer'
 
 const App = () => {
-  const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(state => state.anecdotes)
   const dispatch = useDispatch()
 
   const vote = (id) => {
     console.log('vote', id)
 
     dispatch(upvote(id))
+    dispatch(addNotification('New Vote added'))
   }
 
   const addAnecdote = (event) => {
@@ -25,6 +28,7 @@ const App = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
+      <Notification />
       <AnecdoteList vote={vote} anecdotes={anecdotes} />
       <AnecdoteForm addAnecdote={addAnecdote}/>
     </div>
