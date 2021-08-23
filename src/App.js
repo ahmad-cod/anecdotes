@@ -4,7 +4,7 @@ import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import Notification from './components/Notification'
 import { upvote, newAnecdote } from './reducers/anecdoteReducer'
-import { addNotification } from './reducers/notificationReducer'
+import { addNotification, removeNotification } from './reducers/notificationReducer'
 
 const App = () => {
   const anecdotes = useSelector(state => state.anecdotes)
@@ -15,6 +15,9 @@ const App = () => {
 
     dispatch(upvote(id))
     dispatch(addNotification('New Vote added'))
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, 5000)
   }
 
   const addAnecdote = (event) => {
