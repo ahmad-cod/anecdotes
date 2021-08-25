@@ -25,6 +25,10 @@ const App = () => {
     const content = event.target.content.value
     event.target.content.value = ''
     dispatch(newAnecdote(content))
+    dispatch(addNotification('New Anecdote added'))
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, 5000)
     console.log(content)
   }
 
