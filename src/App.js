@@ -10,11 +10,11 @@ const App = () => {
   const anecdotes = useSelector(state => state.anecdotes)
   const dispatch = useDispatch()
 
-  const vote = (id) => {
+  const vote = (id, content) => {
     console.log('vote', id)
 
     dispatch(upvote(id))
-    dispatch(addNotification('New Vote added'))
+    dispatch(addNotification(`You have voted "${content}"`))
     setTimeout(() => {
       dispatch(removeNotification())
     }, 5000)
@@ -25,7 +25,7 @@ const App = () => {
     const content = event.target.content.value
     event.target.content.value = ''
     dispatch(newAnecdote(content))
-    dispatch(addNotification('New Anecdote added'))
+    dispatch(addNotification(`You added '${content}'`))
     setTimeout(() => {
       dispatch(removeNotification())
     }, 5000)
