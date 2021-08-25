@@ -32,10 +32,25 @@ const App = () => {
     console.log(content)
   }
 
+  const handleFilter = (e) => {
+    let filtered = anecdotes.filter(anecdote =>
+       new RegExp(e.target.value, 'i').test(anecdote.content))
+    console.log('filter', filtered)
+  }
+  const filterForm = () => {
+    return (
+      <form>
+        <label>Filter</label>
+        <input type='text' id='filter' onChange={handleFilter} />
+      </form>
+    )
+  }
+
   return (
     <div>
       <h2>Anecdotes</h2>
       <Notification />
+      {filterForm()}
       <AnecdoteList vote={vote} anecdotes={anecdotes} />
       <AnecdoteForm addAnecdote={addAnecdote}/>
     </div>

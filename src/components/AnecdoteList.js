@@ -1,4 +1,5 @@
 import React from 'react';
+import Anecdote from './Anecdote';
 
 const AnecdoteList = ({ vote, anecdotes }) => {
   return (
@@ -6,15 +7,7 @@ const AnecdoteList = ({ vote, anecdotes }) => {
       {anecdotes
         .sort((a, b) => b.votes - a.votes)
         .map(anecdote =>
-          <div key={anecdote.id}>
-            <div>
-              {anecdote.content}
-            </div>
-            <div>
-              has {anecdote.votes}
-              <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
-            </div>
-          </div>
+          <Anecdote key={anecdote.id} anecdote={anecdote} vote={vote} />
         )}
     </>
   )
