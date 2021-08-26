@@ -2,19 +2,23 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
+import Filter from './components/Filter'
 import Notification from './components/Notification'
 import { upvote, newAnecdote } from './reducers/anecdoteReducer'
 import { addNotification, removeNotification } from './reducers/notificationReducer'
 
 const App = () => {
   const anecdotes = useSelector(state => state.anecdotes)
+  const filteredAnecdotes = useSelector(state => state.filtered)
+  console.log('filtered', filteredAnecdotes)
   const dispatch = useDispatch()
+  // const [filtered, setFiltered] = useState([])
 
   const vote = (id, content) => {
     console.log('vote', id)
 
     dispatch(upvote(id))
-    dispatch(addNotification(`You have voted "${content}"`))
+    dispatch(addNotification(`You voted "${content}"`))
     setTimeout(() => {
       dispatch(removeNotification())
     }, 5000)
@@ -32,26 +36,12 @@ const App = () => {
     console.log(content)
   }
 
-  const handleFilter = (e) => {
-    let filtered = anecdotes.filter(anecdote =>
-       new RegExp(e.target.value, 'i').test(anecdote.content))
-    console.log('filter', filtered)
-  }
-  const filterForm = () => {
-    return (
-      <form>
-        <label>Filter</label>
-        <input type='text' id='filter' onChange={handleFilter} />
-      </form>
-    )
-  }
-
   return (
     <div>
       <h2>Anecdotes</h2>
       <Notification />
-      {filterForm()}
-      <AnecdoteList vote={vote} anecdotes={anecdotes} />
+      <Filter anecdotes={anecdotes} />
+      <AnecdoteList vote={vote} filtered={filteredAnecdotes} anecdotes={anecdotes} />
       <AnecdoteForm addAnecdote={addAnecdote}/>
     </div>
   )
