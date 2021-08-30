@@ -4,9 +4,8 @@ import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
-import { upvote, createAnecdote, initialAnecdotes, asObject } from './reducers/anecdoteReducer'
+import { upvote, createAnecdote, initialAnecdotes } from './reducers/anecdoteReducer'
 import { addNotification, removeNotification } from './reducers/notificationReducer'
-import { create } from './services/anecdotes'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -31,8 +30,7 @@ const App = () => {
     event.preventDefault()
     const content = event.target.content.value
     event.target.content.value = ''
-    const newAnecdote = await create(asObject(content))
-    dispatch(createAnecdote(newAnecdote))
+    dispatch(createAnecdote(content))
     dispatch(addNotification(`You added '${content}'`))
     setTimeout(() => {
       dispatch(removeNotification())
