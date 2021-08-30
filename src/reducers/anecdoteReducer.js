@@ -1,4 +1,4 @@
-import { create, getAll } from "../services/anecdotes"
+import { create, getAll, incrementVote } from "../services/anecdotes"
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -37,9 +37,12 @@ const reducer = (state = [], action) => {
 }
 
 export const upvote = (id) => {
-  return {
-    type: 'INCREMENT_VOTE',
-    data: { id }
+  return async dispatch => {
+    const anecdote = await incrementVote(id)
+    dispatch({
+      type: 'INCREMENT_VOTE',
+      data: anecdote
+    })
   }
 }
 
