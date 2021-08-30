@@ -6,12 +6,12 @@ import Filter from './components/Filter'
 import Notification from './components/Notification'
 import { upvote, createAnecdote, initialAnecdotes, asObject } from './reducers/anecdoteReducer'
 import { addNotification, removeNotification } from './reducers/notificationReducer'
-import { getAll, create } from './services/anecdotes'
+import { create } from './services/anecdotes'
 
 const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    getAll().then(anecdotes => dispatch(initialAnecdotes(anecdotes)))
+    dispatch(initialAnecdotes())
   }, [dispatch])
   const anecdotes = useSelector(state => state.anecdotes)
   const filteredAnecdotes = useSelector(state => state.filtered)
