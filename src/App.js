@@ -5,7 +5,7 @@ import AnecdoteList from './components/AnecdoteList'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
 import { upvote, createAnecdote, initialAnecdotes } from './reducers/anecdoteReducer'
-import { addNotification, removeNotification } from './reducers/notificationReducer'
+import { setNotification } from './reducers/notificationReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -20,10 +20,7 @@ const App = () => {
     console.log('vote', id)
 
     dispatch(upvote(id))
-    dispatch(addNotification(`You voted "${content}"`))
-    setTimeout(() => {
-      dispatch(removeNotification())
-    }, 5000)
+    dispatch(setNotification(`You voted "${content}"`, 4))
   }
 
   const addAnecdote = async (event) => {
@@ -31,10 +28,7 @@ const App = () => {
     const content = event.target.content.value
     event.target.content.value = ''
     dispatch(createAnecdote(content))
-    dispatch(addNotification(`You added '${content}'`))
-    setTimeout(() => {
-      dispatch(removeNotification())
-    }, 5000)
+    dispatch(setNotification(`You added '${content}'`))
     console.log(content)
   }
 
