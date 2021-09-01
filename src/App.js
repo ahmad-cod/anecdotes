@@ -14,22 +14,12 @@ const App = (props) => {
   }, [dispatch])
   const anecdotes = props.anecdotes
   const filteredAnecdotes = props.filtered
-  // const [filtered, setFiltered] = useState([])
 
   const vote = (id, content) => {
     console.log('vote', id)
 
-    dispatch(upvote(id))
-    dispatch(setNotification(`You voted "${content}"`, 4))
-  }
-
-  const addAnecdote = async (event) => {
-    event.preventDefault()
-    const content = event.target.content.value
-    event.target.content.value = ''
-    dispatch(createAnecdote(content))
-    dispatch(setNotification(`You added '${content}'`))
-    console.log(content)
+    props.upvote(id)
+    props.setNotification(`You voted "${content}"`, 3)
   }
 
   return (
@@ -38,7 +28,7 @@ const App = (props) => {
       <Notification />
       <Filter anecdotes={anecdotes} />
       <AnecdoteList vote={vote} filtered={filteredAnecdotes} anecdotes={anecdotes} />
-      <AnecdoteForm addAnecdote={addAnecdote}/>
+      <AnecdoteForm />
     </div>
   )
 }
@@ -52,4 +42,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  initialAnecdotes,
+  upvote,
+  setNotification,
+  createAnecdote
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
