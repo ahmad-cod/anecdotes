@@ -4,10 +4,12 @@ export const setFilter = (filter) => {
     data: filter
   }
 }
-const filterReducer = (state="", action) => {
-  switch(action.type){
+const filterReducer = (state = "", action) => {
+  const {type, data} = action
+
+  switch(type){
     case 'SET_FILTER':
-      return action.data
+      return data
     default:
       return state
   }

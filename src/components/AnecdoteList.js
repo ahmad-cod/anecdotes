@@ -1,11 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Anecdote from './Anecdote';
 
-const AnecdoteList = ({ vote, anecdotes, filtered }) => {
-  if(filtered.length){
+const AnecdoteList = ({ vote, anecdotes, filteredAnecdotes }) => {
+  if (filteredAnecdotes.length) {
     return (
-      filtered.sort((a, b) => b.votes - a.votes)
-              .map(anecdote => <Anecdote key={anecdote.id} anecdote={anecdote} vote={vote} />)
+      filteredAnecdotes.sort((a, b) => b.votes - a.votes)
+        .map(anecdote => <Anecdote key={anecdote.id} anecdote={anecdote} />
+          )
     )
   }
   return (
@@ -13,10 +15,17 @@ const AnecdoteList = ({ vote, anecdotes, filtered }) => {
       {anecdotes
         .sort((a, b) => b.votes - a.votes)
         .map(anecdote =>
-          <Anecdote key={anecdote.id} anecdote={anecdote} vote={vote} />
+          <Anecdote key={anecdote.id} anecdote={anecdote} />
         )}
     </>
   )
 }
 
-export default AnecdoteList
+const mapStateToProps = state => {
+  return {
+    anecdotes: state.anecdotes,
+    filteredAnecdotes: state.filtered
+  }
+}
+
+export default connect(mapStateToProps)(AnecdoteList)
