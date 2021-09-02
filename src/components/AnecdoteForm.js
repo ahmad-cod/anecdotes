@@ -7,6 +7,7 @@ const AnecdoteForm = (props) => {
   const addAnecdote = async (event) => {
     event.preventDefault()
     const content = event.target.content.value
+    if(!content) return props.setNotification('Please input a valid text!')
     event.target.content.value = ''
     props.createAnecdote(content)
     props.setNotification(`You added '${content}'`, 3)

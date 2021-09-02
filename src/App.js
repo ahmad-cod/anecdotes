@@ -10,7 +10,7 @@ const App = ({ initialAnecdotes }) => {
   useEffect(() => {
     initialAnecdotes()
   }, [initialAnecdotes])
-
+  
   return (
     <div>
       <h2>Anecdotes</h2>
