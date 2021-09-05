@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom';
+// import { ChakraProvider } from '@chakra-ui/react'
 import App from './App.js'
 
 // import { createStore } from 'redux'
@@ -53,7 +54,9 @@ import App from './App.js'
 // console.log(store.getState().good)
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  // <ChakraProvider>
+    <Router>
+      <App />
+    </Router>,
+  // </ChakraProvider>,
  document.getElementById('root'))
