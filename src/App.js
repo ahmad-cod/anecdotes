@@ -68,10 +68,15 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const content = useField()
-  const author = useField()
-  const info = useField()
+  const [content, contentReset] = useField('text')
+  const [author, authorReset] = useField()
+  const [info, infoReset] = useField('text')
 
+  const reset = () => {
+    contentReset()
+    authorReset()
+    infoReset()
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(content.type)
@@ -99,8 +104,9 @@ const CreateNew = (props) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
       </form>
+        <button onClick={reset}>reset</button>
     </div>
   )
 

@@ -7,11 +7,12 @@ export const useField = (type = 'text') => {
     setValue(event.target.value)
   }
 
-  return {
+  const reset = () => setValue('')
+  return [{
     type,
     value,
     onChange
-  }
+  }, reset]
 }
 
 // modules can have several named exports
